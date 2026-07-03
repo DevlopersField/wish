@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>A Journey of You — 1997 to 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+/* === SECTION: RESET & BASE === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; overflow-x: hidden; }
+body {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  color: #4a3b46;
+  background: linear-gradient(180deg, #fdfbfb 0%, #fbeef1 45%, #ebedee 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* === SECTION: HERO === */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 60px 22px;
+  position: relative;
+}
+.hero .kicker {
+  font-weight: 400; letter-spacing: 5px; text-transform: uppercase;
+  color: #ff7e5f; font-size: 11px; margin-bottom: 22px;
+  opacity: 0; animation: fadeUp 1.4s ease .3s forwards;
+}
+.hero h1 {
+  font-family: 'Caveat', cursive; font-weight: 700;
+  font-size: clamp(56px, 12vw, 96px); line-height: 1;
+  color: #ff758c;
+  opacity: 0; animation: fadeUp 1.4s ease .6s forwards;
+}
+.hero .dates {
+  font-family: 'Caveat', cursive; font-size: clamp(24px, 5vw, 34px);
+  color: #b56b7b; margin-top: 10px;
+  opacity: 0; animation: fadeUp 1.4s ease .9s forwards;
+}
+.hero p.sub {
+  max-width: 460px; margin-top: 24px;
+  font-size: 15px; font-weight: 300; color: #6b5a63; line-height: 1.7;
+  opacity: 0; animation: fadeUp 1.4s ease 1.2s forwards;
+}
+.hero .scroll-hint {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #b56b7b;
+  opacity: 0; animation: fadeUp 1.4s ease 1.6s forwards, bob 2.2s ease-in-out 2.4s infinite;
+}
+@keyframes fadeUp { from { opacity:0; transform: translateY(14px);} to {opacity:1; transform:none;} }
+@keyframes bob { 0%,100%{ transform: translate(-50%, 0);} 50%{ transform: translate(-50%, 8px);} }
+
+/* === SECTION: TIMELINE STAGE === */
+.timeline {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 20px 0 140px;
+}
+.timeline svg.track {
+  width: 100%; height: auto; display: block; overflow: visible;
+}
+.track-path {
+  fill: none;
+  stroke: url(#lineGrad);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 2px 6px rgba(255,117,140,.28));
+}
+
+/* === SECTION: MILESTONE NODES === */
+/* Nodes are placed OFF the line — left-side nodes end to the left of the
+   path, right-side nodes start to the right — so text never overlaps it. */
+.node {
+  position: absolute;
+  width: 44%;
+  max-width: 210px;
+  opacity: 0;
+  transition: opacity .8s ease, transform .8s cubic-bezier(.2,.9,.3,1.2);
+  pointer-events: none;
+  display: flex; align-items: center; gap: 10px;
+}
+.node.reveal { opacity: 1; pointer-events: auto; }
+
+.node.left  { flex-direction: row-reverse; text-align: right; transform: translate(0, -50%) translateX(-8px); }
+.node.right { flex-direction: row;         text-align: left;  transform: translate(0, -50%) translateX(8px);  }
+.node.left.reveal  { transform: translate(0, -50%) translateX(0); }
+.node.right.reveal { transform: translate(0, -50%) translateX(0); }
+
+.node .dot {
+  flex: 0 0 auto;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: linear-gradient(135deg, #fff 0%, #fff4f6 100%);
+  border: 2px solid #ff758c;
+  box-shadow: 0 6px 18px rgba(255,117,140,.28), inset 0 0 0 3px #fff;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.node .dot::after {
+  content: ""; position: absolute; inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,126,95,.18), transparent 70%);
+  z-index: -1;
+}
+.node .dot svg { width: 28px; height: 28px; }
+.node .text { min-width: 0; flex: 1 1 auto; }
+.node .year {
+  font-family: 'Caveat', cursive; font-weight: 700;
+  font-size: 26px; color: #ff758c; line-height: 1;
+}
+.node .phrase {
+  font-family: 'Poppins', sans-serif; font-weight: 300;
+  font-size: 12.5px; color: #6b5a63;
+  margin-top: 3px; line-height: 1.5;
+}
+
+/* === SECTION: FINAL GLASS CARD === */
+.final-card {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(.92);
+  width: calc(100% - 32px);
+  max-width: 460px;
+  padding: 40px 28px;
+  border-radius: 26px;
+  background: rgba(255,255,255,0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.9);
+  box-shadow: 0 24px 60px rgba(255,117,140,.22), inset 0 1px 0 rgba(255,255,255,.6);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1.4s ease, transform 1.4s cubic-bezier(.2,.9,.3,1.1);
+}
+.final-card.reveal { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.final-card .crown-wrap {
+  width: 64px; height: 64px; margin: 0 auto 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff758c, #ff7e5f);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 24px rgba(255,117,140,.35);
+}
+.final-card .crown-wrap svg { width: 34px; height: 34px; }
+.final-card h2 {
+  font-family: 'Caveat', cursive; font-weight: 700;
+  font-size: clamp(42px, 9vw, 54px);
+  color: #ff758c; line-height: 1; margin-bottom: 6px;
+}
+.final-card .date {
+  font-family: 'Caveat', cursive; font-size: 24px;
+  color: #b56b7b; margin-bottom: 18px;
+}
+.final-card p {
+  font-family: 'Poppins', sans-serif; font-weight: 300;
+  font-size: 14px; color: #4a3b46; line-height: 1.75; margin-bottom: 12px;
+}
+.final-card .sig {
+  font-family: 'Caveat', cursive; font-size: 24px;
+  color: #ff7e5f; margin-top: 10px;
+}
+
+/* === SECTION: FOOTER === */
+.footer {
+  text-align: center; padding: 40px 20px 60px;
+  font-size: 11px; color: #b56b7b; letter-spacing: 2px; text-transform: uppercase;
+}
+.heart { color: #ff758c; }
+
+/* === SECTION: RESPONSIVE === */
+@media (max-width: 480px) {
+  .node { width: 46%; gap: 8px; }
+  .node .dot { width: 44px; height: 44px; }
+  .node .dot svg { width: 24px; height: 24px; }
+  .node .year { font-size: 22px; }
+  .node .phrase { font-size: 11.5px; line-height: 1.45; }
+}
+</style>
+</head>
+<body>
+
+<!-- === SECTION: HERO === -->
+<header class="hero">
+  <div class="kicker">A Little Tribute · 29 Years of You</div>
+  <h1>Happy Birthday</h1>
+  <div class="dates">Since 10 July 1997 · Still shining in 2026</div>
+  <p class="sub">A quiet little line, drawn slowly through time — one year at a time, one memory at a time — leading all the way to you, today.</p>
+  <div class="scroll-hint">Scroll to begin ↓</div>
+</header>
+
+<!-- === SECTION: TIMELINE === -->
+<section class="timeline" id="timeline">
+  <svg class="track" viewBox="0 0 500 5000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <defs>
+      <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#ff9aa8"/>
+        <stop offset="60%" stop-color="#ff758c"/>
+        <stop offset="100%" stop-color="#ff7e5f"/>
+      </linearGradient>
+      <linearGradient id="iconGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"  stop-color="#ff9aa8"/>
+        <stop offset="100%" stop-color="#ff7e5f"/>
+      </linearGradient>
+    </defs>
+    <path id="trackPath" class="track-path" d=""></path>
+  </svg>
+  <div id="nodes"></div>
+</section>
+
+<footer class="footer">Made with <span class="heart">♥</span> — just for you</footer>
+
+<script>
+/* === SECTION: DATA — 29 YEARS (warm, human phrases) === */
+const YEARS = [
+  { year: 1997, phrase: "The day a little star arrived.", icon: "baby" },
+  { year: 1998, phrase: "First smiles, tiniest fingers.", icon: "cradle" },
+  { year: 1999, phrase: "Wobbly first steps, brave little heart.", icon: "steps" },
+  { year: 2000, phrase: "Small words, giant curiosity.", icon: "blocks" },
+  { year: 2001, phrase: "A teddy bear and a whole world.", icon: "teddy" },
+  { year: 2002, phrase: "Giggles that filled every room.", icon: "balloon" },
+  { year: 2003, phrase: "Training wheels off — hello, sky.", icon: "bicycle" },
+  { year: 2004, phrase: "First school bell. So brave.", icon: "backpack" },
+  { year: 2005, phrase: "You painted the world in colour.", icon: "palette" },
+  { year: 2006, phrase: "Storybooks became your best friends.", icon: "book" },
+  { year: 2007, phrase: "You wished on every star.", icon: "star" },
+  { year: 2008, phrase: "A little magic in ordinary days.", icon: "wand" },
+  { year: 2009, phrase: "Best friends, secret handshakes.", icon: "friends" },
+  { year: 2010, phrase: "Bigger dreams started growing inside.", icon: "sprout" },
+  { year: 2011, phrase: "Music became your second language.", icon: "headphones" },
+  { year: 2012, phrase: "Pages full of your quiet thoughts.", icon: "journal" },
+  { year: 2013, phrase: "You found your voice — soft, sure.", icon: "mic" },
+  { year: 2014, phrase: "Catching moments, keeping them safe.", icon: "camera" },
+  { year: 2015, phrase: "The world grew wider around you.", icon: "globe" },
+  { year: 2016, phrase: "Your wings unfolded, one by one.", icon: "butterfly" },
+  { year: 2017, phrase: "Cap in the air — you did it.", icon: "grad" },
+  { year: 2018, phrase: "Blooming into your truest self.", icon: "flower" },
+  { year: 2019, phrase: "Warm mornings, quiet ambition.", icon: "coffee" },
+  { year: 2020, phrase: "Building your future, one day at a time.", icon: "laptop" },
+  { year: 2021, phrase: "A door opened — only for you.", icon: "key" },
+  { year: 2022, phrase: "Roots deeper, branches wider.", icon: "tree" },
+  { year: 2023, phrase: "An idea lit up the whole room.", icon: "bulb" },
+  { year: 2024, phrase: "Finding your true north, always.", icon: "compass" },
+  { year: 2025, phrase: "Standing tall in your own power.", icon: "mountain" },
+];
+
+/* === SECTION: ICON LIBRARY — soft filled line-art with gradient === */
+/* Each icon uses stroke=url(#iconGrad) + light peach fills for warmth. */
+const G = 'stroke="url(#iconGrad)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"';
+const FILL = 'fill="#ffe4e9"';
+const NOFILL = 'fill="none"';
+const ICONS = {
+  baby:      `<g ${G}><circle cx="14" cy="10" r="6" ${FILL}/><path ${NOFILL} d="M5 25c1-6 5-9 9-9s8 3 9 9"/><circle cx="12" cy="10" r="1" fill="#ff758c" stroke="none"/><circle cx="16" cy="10" r="1" fill="#ff758c" stroke="none"/><path ${NOFILL} d="M12.5 13c.8.7 2.2.7 3 0"/></g>`,
+  cradle:    `<g ${G}><path ${FILL} d="M4 14h20l-2 10a3 3 0 0 1-3 2H9a3 3 0 0 1-3-2z"/><path ${NOFILL} d="M8 14c1-5 5-7 6-7s5 2 6 7"/><circle cx="14" cy="5" r="1.2" fill="#ff758c" stroke="none"/></g>`,
+  steps:     `<g ${G}><path ${NOFILL} d="M5 24h4v-4h4v-4h4v-4h4"/><circle cx="8" cy="10" r="3" ${FILL}/></g>`,
+  blocks:    `<g ${G}><rect x="4" y="16" width="9" height="9" rx="1.5" ${FILL}/><rect x="15" y="16" width="9" height="9" rx="1.5" fill="#ffd6dd"/><rect x="9" y="6" width="9" height="9" rx="1.5" ${FILL}/></g>`,
+  teddy:     `<g ${G}><circle cx="14" cy="16" r="8" ${FILL}/><circle cx="7" cy="9" r="3.2" ${FILL}/><circle cx="21" cy="9" r="3.2" ${FILL}/><circle cx="12" cy="15" r=".9" fill="#ff758c" stroke="none"/><circle cx="16" cy="15" r=".9" fill="#ff758c" stroke="none"/><path ${NOFILL} d="M12 19c1 1.2 3 1.2 4 0"/></g>`,
+  balloon:   `<g ${G}><ellipse cx="14" cy="11" rx="7" ry="8" ${FILL}/><path ${NOFILL} d="M14 19v7"/><path ${NOFILL} d="M12 26h4"/></g>`,
+  bicycle:   `<g ${G}><circle cx="7" cy="20" r="5" ${NOFILL}/><circle cx="21" cy="20" r="5" ${NOFILL}/><path ${NOFILL} d="M7 20l6-10h6l2 10"/><path ${NOFILL} d="M13 10h4"/><circle cx="14" cy="20" r="1" fill="#ff758c" stroke="none"/></g>`,
+  backpack:  `<g ${G}><rect x="7" y="9" width="14" height="17" rx="3" ${FILL}/><path ${NOFILL} d="M11 9V6a3 3 0 0 1 6 0v3"/><path ${NOFILL} d="M10 16h8"/><circle cx="14" cy="20" r="1.5" fill="#fff" stroke="#ff7e5f"/></g>`,
+  palette:   `<g ${G}><path ${FILL} d="M14 4a10 10 0 1 0 3 19c-2 0-3-1-3-3s2-2 4-2a4 4 0 0 0 0-8c-2 0-3-2-2-4s0-2-2-2z"/><circle cx="9" cy="12" r="1.3" fill="#ff758c" stroke="none"/><circle cx="13" cy="8" r="1.3" fill="#ff7e5f" stroke="none"/><circle cx="18" cy="10" r="1.3" fill="#ff9aa8" stroke="none"/></g>`,
+  book:      `<g ${G}><path ${FILL} d="M5 6h8a3 3 0 0 1 3 3v16H8a3 3 0 0 1-3-3z"/><path ${FILL} d="M23 6h-8a3 3 0 0 0-3 3v16h8a3 3 0 0 0 3-3z"/></g>`,
+  star:      `<g ${G}><path ${FILL} d="M14 3l3.2 7 7.3 1-5.3 5.3L20.5 24 14 20.5 7.5 24l1.3-7.7L3.5 11l7.3-1z"/></g>`,
+  wand:      `<g ${G}><path ${NOFILL} d="M6 24l14-14"/><path ${FILL} d="M22 4l1.2 3.3L26.5 8.5 23.2 9.8 22 13.1 20.8 9.8 17.5 8.5l3.3-1.2z"/></g>`,
+  friends:   `<g ${G}><circle cx="9" cy="10" r="3.5" ${FILL}/><circle cx="19" cy="10" r="3.5" ${FILL}/><path ${NOFILL} d="M3 24c1-4 4-6 6-6s5 2 6 6"/><path ${NOFILL} d="M13 24c1-4 4-6 6-6s5 2 6 6"/></g>`,
+  sprout:    `<g ${G}><path ${NOFILL} d="M14 26v-10"/><path ${FILL} d="M14 16c-4 0-6-2-6-6 4 0 6 2 6 6z"/><path ${FILL} d="M14 16c4 0 6-2 6-6-4 0-6 2-6 6z"/></g>`,
+  headphones:`<g ${G}><path ${NOFILL} d="M5 18v-3a9 9 0 0 1 18 0v3"/><rect x="3" y="17" width="5" height="9" rx="2" ${FILL}/><rect x="20" y="17" width="5" height="9" rx="2" ${FILL}/></g>`,
+  journal:   `<g ${G}><rect x="6" y="4" width="16" height="22" rx="2" ${FILL}/><path ${NOFILL} d="M10 10h8M10 14h8M10 18h6"/><path ${NOFILL} d="M6 4v22" stroke="#ff7e5f"/></g>`,
+  mic:       `<g ${G}><rect x="11" y="4" width="6" height="13" rx="3" ${FILL}/><path ${NOFILL} d="M7 15a7 7 0 0 0 14 0"/><path ${NOFILL} d="M14 22v4"/><path ${NOFILL} d="M10 26h8"/></g>`,
+  camera:    `<g ${G}><rect x="3" y="9" width="22" height="15" rx="2.5" ${FILL}/><path ${NOFILL} d="M10 9l2-3h4l2 3"/><circle cx="14" cy="16" r="4" fill="#fff"/><circle cx="14" cy="16" r="2" fill="#ff7e5f" stroke="none"/></g>`,
+  globe:     `<g ${G}><circle cx="14" cy="14" r="10" ${FILL}/><path ${NOFILL} d="M4 14h20"/><path ${NOFILL} d="M14 4c4 4 4 16 0 20"/><path ${NOFILL} d="M14 4c-4 4-4 16 0 20"/></g>`,
+  butterfly: `<g ${G}><path ${NOFILL} d="M14 10v14"/><path ${FILL} d="M14 12c-3-6-10-6-10-1s5 8 10 5"/><path ${FILL} d="M14 12c3-6 10-6 10-1s-5 8-10 5"/></g>`,
+  grad:      `<g ${G}><path ${FILL} d="M2 12l12-5 12 5-12 5z"/><path ${NOFILL} d="M7 14v6c0 2 4 4 7 4s7-2 7-4v-6"/><path ${NOFILL} d="M26 12v7"/></g>`,
+  flower:    `<g ${G}><circle cx="14" cy="14" r="4" fill="#ff7e5f" stroke="none"/><circle cx="14" cy="7" r="4" ${FILL}/><circle cx="14" cy="21" r="4" ${FILL}/><circle cx="7" cy="14" r="4" ${FILL}/><circle cx="21" cy="14" r="4" ${FILL}/></g>`,
+  coffee:    `<g ${G}><path ${FILL} d="M5 10h16v9a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6z"/><path ${NOFILL} d="M21 12h3a3 3 0 0 1 0 6h-3"/><path ${NOFILL} d="M9 4c0 2-1 2-1 4M13 4c0 2-1 2-1 4M17 4c0 2-1 2-1 4"/></g>`,
+  laptop:    `<g ${G}><rect x="5" y="7" width="18" height="12" rx="1.8" ${FILL}/><path ${NOFILL} d="M2 22h24l-1 2H3z"/><path ${NOFILL} d="M11 12l2 2-2 2M17 12l-2 2 2 2" stroke="#ff7e5f"/></g>`,
+  key:       `<g ${G}><circle cx="8" cy="14" r="5" ${FILL}/><path ${NOFILL} d="M13 14h13"/><path ${NOFILL} d="M21 14v4"/><path ${NOFILL} d="M25 14v3"/><circle cx="8" cy="14" r="1.5" fill="#fff" stroke="#ff7e5f"/></g>`,
+  tree:      `<g ${G}><path ${NOFILL} d="M14 26V12"/><path ${NOFILL} d="M14 18l-5-5M14 15l5-5M14 22l-4-4M14 20l4-4"/><circle cx="14" cy="8" r="6" ${FILL}/></g>`,
+  bulb:      `<g ${G}><path ${FILL} d="M9 12a5 5 0 1 1 10 0c0 3-2 4-2 6h-6c0-2-2-3-2-6z"/><path ${NOFILL} d="M11 22h6M12 25h4"/></g>`,
+  compass:   `<g ${G}><circle cx="14" cy="14" r="10" ${FILL}/><path fill="#ff7e5f" stroke="none" d="M14 7l3 7-3 7-3-7z"/><circle cx="14" cy="14" r="1.3" fill="#fff"/></g>`,
+  mountain:  `<g ${G}><path ${FILL} d="M3 24l7-12 4 6 3-4 8 10z"/><circle cx="21" cy="7" r="2.2" fill="#ff7e5f" stroke="none"/></g>`,
+  crown:     `<g stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path fill="rgba(255,255,255,.25)" d="M4 22l3-12 6 7 5-11 5 11 6-7 3 12z"/><path d="M4 25h24"/><circle cx="14" cy="7" r="1.2" fill="#fff" stroke="none"/></g>`,
+};
+
+/* === SECTION: PATH BUILDER === */
+const NODES_COUNT = YEARS.length;
+const TIMELINE_HEIGHT = 5000;
+const TOP_PAD = 140;
+const BOTTOM_PAD = 420;
+const usable = TIMELINE_HEIGHT - TOP_PAD - BOTTOM_PAD;
+const step = usable / (NODES_COUNT - 1);
+
+const LEFT_X = 250 - 70;   // 180
+const RIGHT_X = 250 + 70;  // 320
+const CENTER_X = 250;
+
+const positions = YEARS.map((_, i) => ({
+  x: i % 2 === 0 ? LEFT_X : RIGHT_X,
+  y: TOP_PAD + i * step,
+  side: i % 2 === 0 ? "left" : "right",
+}));
+
+const FINAL_POS = { x: CENTER_X, y: TIMELINE_HEIGHT - BOTTOM_PAD / 1.4 };
+
+function buildPath(pts) {
+  let d = `M ${pts[0].x} ${pts[0].y}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i], p1 = pts[i + 1];
+    const midY = (p0.y + p1.y) / 2;
+    d += ` C ${p0.x} ${midY}, ${p1.x} ${midY}, ${p1.x} ${p1.y}`;
+  }
+  return d;
+}
+const allPts = [...positions, FINAL_POS];
+const pathD = buildPath(allPts);
+const pathEl = document.getElementById("trackPath");
+pathEl.setAttribute("d", pathD);
+
+/* === SECTION: RENDER NODES === */
+const nodesContainer = document.getElementById("nodes");
+const svgEl = document.querySelector(".track");
+const timelineEl = document.getElementById("timeline");
+
+/* Anchor the node OFF the line: left-side nodes hug the container's LEFT
+   edge, right-side nodes hug the RIGHT edge. This guarantees no overlap
+   with the SVG line even on the narrowest phones. */
+function svgToPx(x, y) {
+  const rect = svgEl.getBoundingClientRect();
+  const scaleY = rect.height / TIMELINE_HEIGHT;
+  return { top: y * scaleY };
+}
+
+const nodeEls = YEARS.map((item, i) => {
+  const pos = positions[i];
+  const el = document.createElement("div");
+  el.className = `node ${pos.side}`;
+  el.innerHTML = `
+    <div class="dot"><svg viewBox="0 0 28 28">${ICONS[item.icon] || ""}</svg></div>
+    <div class="text">
+      <div class="year">${item.year}</div>
+      <div class="phrase">${item.phrase}</div>
+    </div>
+  `;
+  if (pos.side === "left")  { el.style.left = "0"; }
+  else                       { el.style.right = "0"; }
+  nodesContainer.appendChild(el);
+  return { el, svgX: pos.x, svgY: pos.y };
+});
+
+/* Final glass card */
+const finalCard = document.createElement("div");
+finalCard.className = "final-card";
+finalCard.innerHTML = `
+  <div class="crown-wrap"><svg viewBox="0 0 28 28">${ICONS.crown}</svg></div>
+  <h2>Happy Birthday</h2>
+  <div class="date">10 July 2026 · You turn 29 today</div>
+  <p>From that tiny star who arrived on a July morning in 1997, to the beautiful, healthy, wonderful woman you are right now — every year has only made you brighter.</p>
+  <p>You're kinder than you know, stronger than you show, and more loved than any little line could ever draw. And the best chapters? Still ahead of you.</p>
+  <p>Here's to many, many more birthdays — happy, healthy, and full of you.</p>
+  <div class="sig">— with all my heart</div>
+`;
+nodesContainer.appendChild(finalCard);
+const finalRef = { el: finalCard, svgY: FINAL_POS.y };
+
+function positionAll() {
+  nodeEls.forEach(n => {
+    n.el.style.top = svgToPx(0, n.svgY).top + "px";
+  });
+  finalRef.el.style.top = svgToPx(0, finalRef.svgY).top + "px";
+}
+positionAll();
+window.addEventListener("resize", positionAll);
+
+/* === SECTION: DRAW ANIMATION === */
+const totalLength = pathEl.getTotalLength();
+pathEl.style.strokeDasharray = totalLength;
+pathEl.style.strokeDashoffset = totalLength;
+
+function lengthAtY(targetY) {
+  let lo = 0, hi = totalLength;
+  for (let i = 0; i < 24; i++) {
+    const mid = (lo + hi) / 2;
+    const pt = pathEl.getPointAtLength(mid);
+    if (pt.y < targetY) lo = mid; else hi = mid;
+  }
+  return (lo + hi) / 2;
+}
+const nodeLengths = nodeEls.map(n => lengthAtY(n.svgY));
+const finalLength = lengthAtY(finalRef.svgY);
+
+const DURATION_MS = 18000;
+let animStart = null, started = false;
+
+function tick(ts) {
+  if (!animStart) animStart = ts;
+  const elapsed = ts - animStart;
+  const progress = Math.min(1, elapsed / DURATION_MS);
+  const eased = 1 - Math.pow(1 - progress, 3);
+  const drawn = totalLength * eased;
+  pathEl.style.strokeDashoffset = totalLength - drawn;
+
+  nodeEls.forEach((n, i) => {
+    if (drawn >= nodeLengths[i] && !n.el.classList.contains("reveal")) {
+      setTimeout(() => n.el.classList.add("reveal"), 100);
+    }
+  });
+  if (drawn >= finalLength && !finalRef.el.classList.contains("reveal")) {
+    setTimeout(() => finalRef.el.classList.add("reveal"), 240);
+  }
+  if (progress < 1) requestAnimationFrame(tick);
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !started) {
+      started = true;
+      requestAnimationFrame(tick);
+    }
+  });
+}, { threshold: 0.05 });
+observer.observe(timelineEl);
+
+document.fonts && document.fonts.ready.then(positionAll);
+</script>
+</body>
+</html>
