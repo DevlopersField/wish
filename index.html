@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>A Journey of You — 1997 to 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Tere Naam Ek Safar — 1997 se 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -26,15 +26,15 @@ body {
 
 /* === SECTION: HERO === */
 .hero {
-  min-height: 100vh;
+  min-height: 86svh;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  text-align: center; padding: 60px 22px;
+  text-align: center; padding: 40px 22px 84px;
   position: relative;
 }
 .hero .kicker {
-  font-weight: 400; letter-spacing: 5px; text-transform: uppercase;
-  color: #ff7e5f; font-size: 11px; margin-bottom: 22px;
+  font-weight: 400; letter-spacing: 4px; text-transform: uppercase;
+  color: #ff7e5f; font-size: 11px; margin-bottom: 16px;
   opacity: 0; animation: fadeUp 1.4s ease .3s forwards;
 }
 .hero h1 {
@@ -44,18 +44,19 @@ body {
   opacity: 0; animation: fadeUp 1.4s ease .6s forwards;
 }
 .hero .dates {
-  font-family: 'Caveat', cursive; font-size: clamp(24px, 5vw, 34px);
+  font-family: 'Caveat', cursive; font-size: clamp(23px, 5vw, 34px);
   color: #b56b7b; margin-top: 10px;
   opacity: 0; animation: fadeUp 1.4s ease .9s forwards;
 }
 .hero p.sub {
-  max-width: 460px; margin-top: 24px;
-  font-size: 15px; font-weight: 300; color: #6b5a63; line-height: 1.7;
+  max-width: 440px; margin-top: 18px;
+  font-size: 14.5px; font-weight: 300; color: #6b5a63; line-height: 1.65;
   opacity: 0; animation: fadeUp 1.4s ease 1.2s forwards;
 }
 .hero .scroll-hint {
-  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-  font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #b56b7b;
+  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+  font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: #b56b7b;
+  white-space: nowrap;
   opacity: 0; animation: fadeUp 1.4s ease 1.6s forwards, bob 2.2s ease-in-out 2.4s infinite;
 }
 @keyframes fadeUp { from { opacity:0; transform: translateY(14px);} to {opacity:1; transform:none;} }
@@ -67,7 +68,7 @@ body {
   width: 100%;
   max-width: 560px;
   margin: 0 auto;
-  padding: 20px 0 140px;
+  padding: 6px 0 130px;
 }
 .timeline svg.track {
   width: 100%; height: auto; display: block; overflow: visible;
@@ -82,12 +83,13 @@ body {
 }
 
 /* === SECTION: MILESTONE NODES === */
-/* Nodes are placed OFF the line — left-side nodes end to the left of the
-   path, right-side nodes start to the right — so text never overlaps it. */
+/* Left-side nodes hug the container's LEFT edge, right-side nodes hug the
+   RIGHT edge — so text sits OFF the central line and can never overlap it.
+   Consecutive years alternate sides, so vertical neighbours never collide. */
 .node {
   position: absolute;
-  width: 44%;
-  max-width: 210px;
+  width: 43%;
+  max-width: 208px;
   opacity: 0;
   transition: opacity .8s ease, transform .8s cubic-bezier(.2,.9,.3,1.2);
   pointer-events: none;
@@ -102,7 +104,7 @@ body {
 
 .node .dot {
   flex: 0 0 auto;
-  width: 52px; height: 52px; border-radius: 50%;
+  width: 50px; height: 50px; border-radius: 50%;
   background: linear-gradient(135deg, #fff 0%, #fff4f6 100%);
   border: 2px solid #ff758c;
   box-shadow: 0 6px 18px rgba(255,117,140,.28), inset 0 0 0 3px #fff;
@@ -115,7 +117,7 @@ body {
   background: radial-gradient(circle, rgba(255,126,95,.18), transparent 70%);
   z-index: -1;
 }
-.node .dot svg { width: 28px; height: 28px; }
+.node .dot svg { width: 27px; height: 27px; }
 .node .text { min-width: 0; flex: 1 1 auto; }
 .node .year {
   font-family: 'Caveat', cursive; font-weight: 700;
@@ -174,18 +176,24 @@ body {
 
 /* === SECTION: FOOTER === */
 .footer {
-  text-align: center; padding: 40px 20px 60px;
+  text-align: center; padding: 40px 20px calc(60px + env(safe-area-inset-bottom));
   font-size: 11px; color: #b56b7b; letter-spacing: 2px; text-transform: uppercase;
 }
 .heart { color: #ff758c; }
 
-/* === SECTION: RESPONSIVE === */
-@media (max-width: 480px) {
-  .node { width: 46%; gap: 8px; }
+/* === SECTION: RESPONSIVE — small phones === */
+@media (max-width: 400px) {
+  .node { width: 45%; gap: 8px; }
   .node .dot { width: 44px; height: 44px; }
   .node .dot svg { width: 24px; height: 24px; }
   .node .year { font-size: 22px; }
   .node .phrase { font-size: 11.5px; line-height: 1.45; }
+  .final-card { padding: 34px 22px; }
+  .final-card p { font-size: 13.5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 </style>
 </head>
@@ -193,11 +201,11 @@ body {
 
 <!-- === SECTION: HERO === -->
 <header class="hero">
-  <div class="kicker">A Little Tribute · 29 Years of You</div>
+  <div class="kicker">Ek Chhota Sa Tribute · Tere 29 Saal</div>
   <h1>Happy Birthday</h1>
-  <div class="dates">Since 10 July 1997 · Still shining in 2026</div>
-  <p class="sub">A quiet little line, drawn slowly through time — one year at a time, one memory at a time — leading all the way to you, today.</p>
-  <div class="scroll-hint">Scroll to begin ↓</div>
+  <div class="dates">10 July 1997 se · Aaj bhi 2026 mein chamakti</div>
+  <p class="sub">Ek chhoti si line, dheere-dheere waqt ke saath khinchi — ek saal, ek yaad — seedhi tujh tak, aaj tak.</p>
+  <div class="scroll-hint">Scroll karke shuru karo ↓</div>
 </header>
 
 <!-- === SECTION: TIMELINE === -->
@@ -219,40 +227,40 @@ body {
   <div id="nodes"></div>
 </section>
 
-<footer class="footer">Made with <span class="heart">♥</span> — just for you</footer>
+<footer class="footer">Banaya <span class="heart">♥</span> se — sirf tere liye</footer>
 
 <script>
-/* === SECTION: DATA — 29 YEARS (warm, human phrases) === */
+/* === SECTION: DATA — 29 SAAL (garam, dil se Hinglish phrases) === */
 const YEARS = [
-  { year: 1997, phrase: "The day a little star arrived.", icon: "baby" },
-  { year: 1998, phrase: "First smiles, tiniest fingers.", icon: "cradle" },
-  { year: 1999, phrase: "Wobbly first steps, brave little heart.", icon: "steps" },
-  { year: 2000, phrase: "Small words, giant curiosity.", icon: "blocks" },
-  { year: 2001, phrase: "A teddy bear and a whole world.", icon: "teddy" },
-  { year: 2002, phrase: "Giggles that filled every room.", icon: "balloon" },
-  { year: 2003, phrase: "Training wheels off — hello, sky.", icon: "bicycle" },
-  { year: 2004, phrase: "First school bell. So brave.", icon: "backpack" },
-  { year: 2005, phrase: "You painted the world in colour.", icon: "palette" },
-  { year: 2006, phrase: "Storybooks became your best friends.", icon: "book" },
-  { year: 2007, phrase: "You wished on every star.", icon: "star" },
-  { year: 2008, phrase: "A little magic in ordinary days.", icon: "wand" },
+  { year: 1997, phrase: "Ek nanhi pari duniya mein aayi.", icon: "baby" },
+  { year: 1998, phrase: "Pehli muskaan, nanhe se haath.", icon: "cradle" },
+  { year: 1999, phrase: "Ladkhadate pehle kadam, himmati dil.", icon: "steps" },
+  { year: 2000, phrase: "Nanhe shabd, badi si curiosity.", icon: "blocks" },
+  { year: 2001, phrase: "Ek teddy aur poori duniya.", icon: "teddy" },
+  { year: 2002, phrase: "Woh hasi jo kamra bhar deti.", icon: "balloon" },
+  { year: 2003, phrase: "Cycle daudi — hello aasman!", icon: "bicycle" },
+  { year: 2004, phrase: "Pehli school ghanti. Kitni brave.", icon: "backpack" },
+  { year: 2005, phrase: "Duniya ko rangon se bhar diya.", icon: "palette" },
+  { year: 2006, phrase: "Kitaabein teri best friend ban gayi.", icon: "book" },
+  { year: 2007, phrase: "Har taare pe ek wish maangi.", icon: "star" },
+  { year: 2008, phrase: "Aam dinon mein bhi thodi magic.", icon: "wand" },
   { year: 2009, phrase: "Best friends, secret handshakes.", icon: "friends" },
-  { year: 2010, phrase: "Bigger dreams started growing inside.", icon: "sprout" },
-  { year: 2011, phrase: "Music became your second language.", icon: "headphones" },
-  { year: 2012, phrase: "Pages full of your quiet thoughts.", icon: "journal" },
-  { year: 2013, phrase: "You found your voice — soft, sure.", icon: "mic" },
-  { year: 2014, phrase: "Catching moments, keeping them safe.", icon: "camera" },
-  { year: 2015, phrase: "The world grew wider around you.", icon: "globe" },
-  { year: 2016, phrase: "Your wings unfolded, one by one.", icon: "butterfly" },
-  { year: 2017, phrase: "Cap in the air — you did it.", icon: "grad" },
-  { year: 2018, phrase: "Blooming into your truest self.", icon: "flower" },
-  { year: 2019, phrase: "Warm mornings, quiet ambition.", icon: "coffee" },
-  { year: 2020, phrase: "Building your future, one day at a time.", icon: "laptop" },
-  { year: 2021, phrase: "A door opened — only for you.", icon: "key" },
-  { year: 2022, phrase: "Roots deeper, branches wider.", icon: "tree" },
-  { year: 2023, phrase: "An idea lit up the whole room.", icon: "bulb" },
-  { year: 2024, phrase: "Finding your true north, always.", icon: "compass" },
-  { year: 2025, phrase: "Standing tall in your own power.", icon: "mountain" },
+  { year: 2010, phrase: "Andar bade sapne panpne lage.", icon: "sprout" },
+  { year: 2011, phrase: "Music teri doosri zubaan bani.", icon: "headphones" },
+  { year: 2012, phrase: "Panne bhare chup se khayalon se.", icon: "journal" },
+  { year: 2013, phrase: "Apni aawaz paayi — halki par pakki.", icon: "mic" },
+  { year: 2014, phrase: "Lamhe pakde, dil mein sambhale.", icon: "camera" },
+  { year: 2015, phrase: "Teri duniya aur badi hui.", icon: "globe" },
+  { year: 2016, phrase: "Tere par khulte gaye, ek ek.", icon: "butterfly" },
+  { year: 2017, phrase: "Cap hawa mein — tune kar dikhaya!", icon: "grad" },
+  { year: 2018, phrase: "Apne asli roop mein khili.", icon: "flower" },
+  { year: 2019, phrase: "Garam subah, chup si mehnat.", icon: "coffee" },
+  { year: 2020, phrase: "Apna future banati, roz ek kadam.", icon: "laptop" },
+  { year: 2021, phrase: "Ek darwaza khula — sirf tere liye.", icon: "key" },
+  { year: 2022, phrase: "Jadein gehri, shaakhein door tak.", icon: "tree" },
+  { year: 2023, phrase: "Ek idea ne kamra roshan kar diya.", icon: "bulb" },
+  { year: 2024, phrase: "Apni manzil ki disha, hamesha.", icon: "compass" },
+  { year: 2025, phrase: "Apni taakat mein sar utha ke.", icon: "mountain" },
 ];
 
 /* === SECTION: ICON LIBRARY — soft filled line-art with gradient === */
@@ -294,12 +302,16 @@ const ICONS = {
 };
 
 /* === SECTION: PATH BUILDER === */
+/* Fixed vertical STEP (in SVG units) keeps a predictable gap between nodes at
+   every screen width. The final card gets its own generous zone below the last
+   milestone (CARD_GAP) so it never collides with year 2025. */
 const NODES_COUNT = YEARS.length;
-const TIMELINE_HEIGHT = 5000;
-const TOP_PAD = 140;
-const BOTTOM_PAD = 420;
-const usable = TIMELINE_HEIGHT - TOP_PAD - BOTTOM_PAD;
-const step = usable / (NODES_COUNT - 1);
+const TOP_PAD  = 120;
+const STEP     = 165;
+const CARD_GAP = 680;   // clearance between last node and the final card
+                        // (sized for the tall wrapped card on ~320px phones)
+const lastNodeY = TOP_PAD + (NODES_COUNT - 1) * STEP;
+const TIMELINE_HEIGHT = lastNodeY + CARD_GAP + 560;
 
 const LEFT_X = 250 - 70;   // 180
 const RIGHT_X = 250 + 70;  // 320
@@ -307,11 +319,11 @@ const CENTER_X = 250;
 
 const positions = YEARS.map((_, i) => ({
   x: i % 2 === 0 ? LEFT_X : RIGHT_X,
-  y: TOP_PAD + i * step,
+  y: TOP_PAD + i * STEP,
   side: i % 2 === 0 ? "left" : "right",
 }));
 
-const FINAL_POS = { x: CENTER_X, y: TIMELINE_HEIGHT - BOTTOM_PAD / 1.4 };
+const FINAL_POS = { x: CENTER_X, y: lastNodeY + CARD_GAP };
 
 function buildPath(pts) {
   let d = `M ${pts[0].x} ${pts[0].y}`;
@@ -324,21 +336,22 @@ function buildPath(pts) {
 }
 const allPts = [...positions, FINAL_POS];
 const pathD = buildPath(allPts);
+
+const svgEl = document.querySelector(".track");
+svgEl.setAttribute("viewBox", `0 0 500 ${TIMELINE_HEIGHT}`);
 const pathEl = document.getElementById("trackPath");
 pathEl.setAttribute("d", pathD);
 
 /* === SECTION: RENDER NODES === */
 const nodesContainer = document.getElementById("nodes");
-const svgEl = document.querySelector(".track");
 const timelineEl = document.getElementById("timeline");
 
-/* Anchor the node OFF the line: left-side nodes hug the container's LEFT
-   edge, right-side nodes hug the RIGHT edge. This guarantees no overlap
-   with the SVG line even on the narrowest phones. */
-function svgToPx(x, y) {
+/* Map an SVG y-coordinate to a pixel offset using the ACTUAL rendered height,
+   so node placement stays accurate at any width / device-pixel-ratio. */
+function svgToPx(y) {
   const rect = svgEl.getBoundingClientRect();
   const scaleY = rect.height / TIMELINE_HEIGHT;
-  return { top: y * scaleY };
+  return y * scaleY;
 }
 
 const nodeEls = YEARS.map((item, i) => {
@@ -355,7 +368,7 @@ const nodeEls = YEARS.map((item, i) => {
   if (pos.side === "left")  { el.style.left = "0"; }
   else                       { el.style.right = "0"; }
   nodesContainer.appendChild(el);
-  return { el, svgX: pos.x, svgY: pos.y };
+  return { el, svgY: pos.y };
 });
 
 /* Final glass card */
@@ -364,25 +377,25 @@ finalCard.className = "final-card";
 finalCard.innerHTML = `
   <div class="crown-wrap"><svg viewBox="0 0 28 28">${ICONS.crown}</svg></div>
   <h2>Happy Birthday</h2>
-  <div class="date">10 July 2026 · You turn 29 today</div>
-  <p>From that tiny star who arrived on a July morning in 1997, to the beautiful, healthy, wonderful woman you are right now — every year has only made you brighter.</p>
-  <p>You're kinder than you know, stronger than you show, and more loved than any little line could ever draw. And the best chapters? Still ahead of you.</p>
-  <p>Here's to many, many more birthdays — happy, healthy, and full of you.</p>
-  <div class="sig">— with all my heart</div>
+  <div class="date">10 July 2026 · Aaj tu 29 ki ho gayi</div>
+  <p>Us nanhi pari se jo 1997 ki ek July subah aayi thi, aaj ki is khoobsurat, healthy aur kamaal ki ladki tak — har ek saal ne tujhe aur chamka diya.</p>
+  <p>Tu jitna sochti hai usse zyada pyaari hai, jitna dikhati hai usse zyada mazboot — aur itni pyaari, ki koi chhoti si line kabhi bana hi na paaye. Aur sabse acche chapters? Woh toh abhi baaki hain.</p>
+  <p>Bahut saare, bahut saare aur birthdays ke naam — khush, healthy aur bilkul tere jaise.</p>
+  <div class="sig">— poore dil se</div>
 `;
 nodesContainer.appendChild(finalCard);
 const finalRef = { el: finalCard, svgY: FINAL_POS.y };
 
 function positionAll() {
-  nodeEls.forEach(n => {
-    n.el.style.top = svgToPx(0, n.svgY).top + "px";
-  });
-  finalRef.el.style.top = svgToPx(0, finalRef.svgY).top + "px";
+  nodeEls.forEach(n => { n.el.style.top = svgToPx(n.svgY) + "px"; });
+  finalRef.el.style.top = svgToPx(finalRef.svgY) + "px";
 }
 positionAll();
-window.addEventListener("resize", positionAll);
 
-/* === SECTION: DRAW ANIMATION === */
+/* === SECTION: SCROLL-DRIVEN DRAW === */
+/* The line grows ONLY as you scroll. We map a "reveal line" (80% down the
+   viewport) to a point on the path and draw everything above it. Nodes light
+   up as the growing line reaches them, and stay lit. */
 const totalLength = pathEl.getTotalLength();
 pathEl.style.strokeDasharray = totalLength;
 pathEl.style.strokeDashoffset = totalLength;
@@ -396,42 +409,40 @@ function lengthAtY(targetY) {
   }
   return (lo + hi) / 2;
 }
-const nodeLengths = nodeEls.map(n => lengthAtY(n.svgY));
-const finalLength = lengthAtY(finalRef.svgY);
+let nodeLengths = nodeEls.map(n => lengthAtY(n.svgY));
+let finalLength = lengthAtY(finalRef.svgY);
 
-const DURATION_MS = 18000;
-let animStart = null, started = false;
+const REVEAL_RATIO = 0.80; // draw the line up to this fraction of the viewport
+let ticking = false;
 
-function tick(ts) {
-  if (!animStart) animStart = ts;
-  const elapsed = ts - animStart;
-  const progress = Math.min(1, elapsed / DURATION_MS);
-  const eased = 1 - Math.pow(1 - progress, 3);
-  const drawn = totalLength * eased;
-  pathEl.style.strokeDashoffset = totalLength - drawn;
+function updateDraw() {
+  ticking = false;
+  const rect = svgEl.getBoundingClientRect();
+  const scaleY = rect.height / TIMELINE_HEIGHT;
+  const revealViewportY = window.innerHeight * REVEAL_RATIO;
+  let svgY = (revealViewportY - rect.top) / scaleY;
+  svgY = Math.max(0, Math.min(TIMELINE_HEIGHT, svgY));
+  const drawn = svgY <= 0 ? 0 : lengthAtY(svgY);
+  pathEl.style.strokeDashoffset = Math.max(0, totalLength - drawn);
 
   nodeEls.forEach((n, i) => {
-    if (drawn >= nodeLengths[i] && !n.el.classList.contains("reveal")) {
-      setTimeout(() => n.el.classList.add("reveal"), 100);
-    }
+    if (drawn >= nodeLengths[i]) n.el.classList.add("reveal");
   });
-  if (drawn >= finalLength && !finalRef.el.classList.contains("reveal")) {
-    setTimeout(() => finalRef.el.classList.add("reveal"), 240);
-  }
-  if (progress < 1) requestAnimationFrame(tick);
+  if (drawn >= finalLength) finalRef.el.classList.add("reveal");
 }
+function onScroll() {
+  if (!ticking) { ticking = true; requestAnimationFrame(updateDraw); }
+}
+window.addEventListener("scroll", onScroll, { passive: true });
+window.addEventListener("resize", () => {
+  positionAll();
+  nodeLengths = nodeEls.map(n => lengthAtY(n.svgY));
+  finalLength = lengthAtY(finalRef.svgY);
+  updateDraw();
+});
+updateDraw();
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting && !started) {
-      started = true;
-      requestAnimationFrame(tick);
-    }
-  });
-}, { threshold: 0.05 });
-observer.observe(timelineEl);
-
-document.fonts && document.fonts.ready.then(positionAll);
+document.fonts && document.fonts.ready.then(() => { positionAll(); updateDraw(); });
 </script>
 </body>
 </html>
