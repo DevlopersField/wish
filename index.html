@@ -425,10 +425,12 @@ function updateDraw() {
   const drawn = svgY <= 0 ? 0 : lengthAtY(svgY);
   pathEl.style.strokeDashoffset = Math.max(0, totalLength - drawn);
 
+  /* Toggle (not just add) so scrolling UP cleanly reverses the reveal in
+     sync with the retracting line, and scrolling DOWN re-reveals. */
   nodeEls.forEach((n, i) => {
-    if (drawn >= nodeLengths[i]) n.el.classList.add("reveal");
+    n.el.classList.toggle("reveal", drawn >= nodeLengths[i]);
   });
-  if (drawn >= finalLength) finalRef.el.classList.add("reveal");
+  finalRef.el.classList.toggle("reveal", drawn >= finalLength);
 }
 function onScroll() {
   if (!ticking) { ticking = true; requestAnimationFrame(updateDraw); }
